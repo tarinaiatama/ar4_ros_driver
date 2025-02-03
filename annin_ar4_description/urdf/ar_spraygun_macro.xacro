@@ -2,7 +2,7 @@
   <link name="spray_link">
     <visual>
       <geometry>
-        <mesh filename="package://your_package/meshes/gripper.stl"/>
+         <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_gripper/gripper_base_link.stl" />
       </geometry>
     </visual>
     <collision>
