@@ -13,7 +13,7 @@
   </xacro:ar_robot>
 
   <xacro:if value="$(arg include_gripper)">
-    <xacro:include filename="$(find annin_ar4_description)/urdf/ar_gripper_macro.xacro"/>
+    <xacro:include filename="$(find annin_ar4_description)/urdf/ar_spraygun_macro.xacro.xacro"/>
     <xacro:ar_gripper parent="ee_link" />
   </xacro:if>
 </robot>
