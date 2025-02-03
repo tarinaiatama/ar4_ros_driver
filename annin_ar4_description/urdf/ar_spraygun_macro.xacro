@@ -7,7 +7,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://your_package/meshes/gripper.stl"/>
+       <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/土台_V5 v4.stl" />
       </geometry>
     </collision>
   </link>
