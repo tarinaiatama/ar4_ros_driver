@@ -1,1 +1,14 @@
-unti      
+<!-- 新しいリンク -->
+  <link name="spray_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://your_package/meshes/gripper.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://your_package/meshes/gripper.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
