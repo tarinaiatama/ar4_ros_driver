@@ -4,12 +4,12 @@
   <link name="spray_link">
     <visual>
       <geometry>
-        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/土台_V5 v4.stl" />
+        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl" />
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/土台_V5 v4.stl" />
+        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl" />
       </geometry>
     </collision>
   </link>
