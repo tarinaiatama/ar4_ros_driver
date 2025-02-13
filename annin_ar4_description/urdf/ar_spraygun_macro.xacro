@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
 <xacro:macro name="ar_spraygun" params="parent">
   <joint name="spray_joint" type="fixed">
     <parent link="${parent}"/>
