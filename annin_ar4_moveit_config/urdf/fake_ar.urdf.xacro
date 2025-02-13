@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg ar_model)">
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
-  <xacro:include filename="$(find annin_ar4_description)/urdf/ar_gripper_macro.xacro"/>
+  <xacro:include filename="$(find annin_ar4_description)/urdf/ar_spraygun_macro.xacro"/>
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar.ros2_control.xacro"/>
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar_gripper.ros2_control.xacro"/>
 
@@ -12,7 +12,7 @@
   >
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:ar_robot>
-  <xacro:ar_gripper parent="ee_link" />
+  <xacro:ar_spraygun parent="ee_link" />
 
   <xacro:ar_ros2_control
     ar_model="$(arg ar_model)"
