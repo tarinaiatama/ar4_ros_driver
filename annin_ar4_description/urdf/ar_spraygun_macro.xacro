@@ -1,24 +1,19 @@
-<?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro">
-  <!-- スプレーガンのリンク -->
+<xacro:macro name="ar_spraygun" params="parent">
+  <joint name="spray_joint" type="fixed">
+    <parent link="${parent}"/>
+    <child link="spray_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
   <link name="spray_link">
     <visual>
       <geometry>
-        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl" />
+        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl" />
+        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl"/>
       </geometry>
     </collision>
   </link>
-
-  <!-- `ee_link` と `spray_link` を接続 -->
-  <joint name="spray_joint" type="fixed">
-    <parent link="ee_link"/>
-    <child link="spray_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- 必要に応じて調整 -->
-  </joint>
-</robot>
-
+</xacro:macro>
