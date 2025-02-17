@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg ar_model)">
-  <xacro:arg name="include_gripper" default="true"/>
+  <xacro:arg name="include_gripper" default="false"/>
+  <xacro:arg name="include_spraygun" default="ture"/>
 
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
 
@@ -12,7 +13,14 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:ar_robot>
 
+  <!-- グリッパーを追加 -->
   <xacro:if value="$(arg include_gripper)">
+    <xacro:include filename="$(find annin_ar4_description)/urdf/ar_gripper_macro.xacro"/>
+    <xacro:ar_gripper parent="ee_link" />
+  </xacro:if>
+
+  <!-- スプレーガンを追加 -->
+  <xacro:if value="$(arg include_spraygun)">
     <xacro:include filename="$(find annin_ar4_description)/urdf/ar_spraygun_macro.xacro"/>
     <xacro:ar_spraygun parent="ee_link" />
   </xacro:if>
