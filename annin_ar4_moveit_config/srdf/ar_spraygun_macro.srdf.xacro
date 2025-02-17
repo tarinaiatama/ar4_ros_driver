@@ -1,21 +1,23 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-<xacro:macro name="ar_spraygun_srdf" params="ee_link">
-  <link name="spraygun_link">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.1"/>
-      <geometry>
-        <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl"/>
-      </geometry>
-      <material name="">
-        <color rgba="0.5 0.5 0.5 1"/>
-      </material>
-    </visual>
-  </link>
-  <joint name="spraygun_joint" type="fixed">
-    <parent link="ee_link" />
-    <child link="spraygun_link" />
-    <origin xyz="0 0 0.0" rpy="0 0 0"/>
-  </joint>
-</xacro:macro>
+  <xacro:macro name="ar_spraygun_srdf" params="ee_link">
+    <link name="spraygun_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0.1"/>
+        <geometry>
+          <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+      </visual>
+    </link>
+    <joint name="spraygun_joint" type="fixed">
+      <parent link="${ee_link}" />
+      <child link="spraygun_link" />
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+</robot>
