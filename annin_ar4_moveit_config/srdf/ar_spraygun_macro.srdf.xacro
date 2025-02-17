@@ -14,7 +14,7 @@
     </visual>
   </link>
   <joint name="spraygun_joint" type="fixed">
-    <parent link="${params}" />
+    <parent link="ee_link" />
     <child link="spraygun_link" />
     <origin xyz="0 0 0.0" rpy="0 0 0"/>
   </joint>
