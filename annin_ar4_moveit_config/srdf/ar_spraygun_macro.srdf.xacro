@@ -1,3 +1,6 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
 <xacro:macro name="ar_spraygun_srdf" params="parent">
   <link name="spraygun_link">
     <visual>
