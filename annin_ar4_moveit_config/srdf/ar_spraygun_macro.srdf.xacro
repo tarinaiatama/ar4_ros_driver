@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-<xacro:macro name="ar_spraygun" params="ee_link">
+<xacro:macro name="ar_spraygun" params="${ee_link}">
   <link name="spraygun_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.1"/>
