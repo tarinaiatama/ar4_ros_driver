@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg name)">
   <xacro:arg name="include_gripper" default="false"/>
-  <xacro:arg name="include_spraygun" default="ture"/>
+  <xacro:arg name="include_spraygun" default="true"/>
 
   <!-- SRDFのマクロをインクルード -->
   <xacro:include filename="$(find annin_ar4_moveit_config)/srdf/ar_macro.srdf.xacro"/>
