@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg ar_model)">
+　<xacro:arg name="tf_prefix" default="" />
   <xacro:arg name="include_gripper" default="false"/>
   <xacro:arg name="include_spraygun" default="true"/>
 
