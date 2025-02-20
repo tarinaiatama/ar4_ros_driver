@@ -5,6 +5,8 @@
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar.ros2_control.xacro"/>
  <!-- <xacro:include filename="$(find annin_ar4_description)/urdf/ar_gripper.ros2_control.xacro"/> -->
 
+ <xacro:arg name="tf_prefix" default="" />
+
   <link name="world" />
   <xacro:ar_robot
     parent="world"
@@ -12,7 +14,7 @@
   >
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:ar_robot>
-  <xacro:ar_spraygun parent="ee_link"/>
+  <xacro:ar_spraygun parent="$(arg tf_prefix)ee_link" />
 
   <xacro:ar_ros2_control
     ar_model="$(arg ar_model)"
