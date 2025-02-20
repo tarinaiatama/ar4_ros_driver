@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="ar_spraygun_srdf" params="ee_link">
+  <xacro:macro name="ar_spraygun_srdf" params="parent">
     <link name="spraygun_link">
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0.1"/>
@@ -14,7 +14,7 @@
       </visual>
     </link>
     <joint name="spraygun_joint" type="fixed">
-      <parent link="${ee_link}" />
+      <parent link="${parent}" />
       <child link="spraygun_link" />
       <origin xyz="0 0 0.0" rpy="0 0 0"/>
     </joint>
