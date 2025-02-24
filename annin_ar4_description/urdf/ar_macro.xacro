@@ -4,6 +4,8 @@
   <xacro:arg name="include_gripper" default="false"/>
   <xacro:arg name="include_spraygun" default="true"/> <!--← 全角スペースを削除 -->
 
+ <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
+
   <link name="world" />
   <xacro:ar_robot
     tf_prefix="$(arg tf_prefix)"
