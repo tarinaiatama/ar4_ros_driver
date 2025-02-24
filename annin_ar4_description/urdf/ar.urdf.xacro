@@ -2,9 +2,9 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg ar_model)">
   <xacro:arg name="tf_prefix" default="" />
   <xacro:arg name="include_gripper" default="false"/>
-　<xacro:arg name="include_spraygun" default="true"/>
+  <xacro:arg name="include_spraygun" default="true"/> <!--← 全角スペースを削除 -->
 
-  <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
+ <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
 
   <link name="world" />
   <xacro:ar_robot
@@ -18,12 +18,12 @@
   <!-- グリッパーを追加 -->
   <xacro:if value="$(arg include_gripper)">
     <xacro:include filename="$(find annin_ar4_description)/urdf/ar_gripper_macro.xacro"/>
-    <xacro:ar_gripper parent="ee_link" />
+    <xacro:ar_gripper parent="${tf_prefix}ee_link" /> <!-- tf_prefixを適用 -->
   </xacro:if>
 
   <!-- スプレーガンを追加 -->
   <xacro:if value="$(arg include_spraygun)">
     <xacro:include filename="$(find annin_ar4_description)/urdf/ar_spraygun_macro.xacro"/>
-    <xacro:ar_spraygun parent="ee_link" />
+    <xacro:ar_spraygun parent="${tf_prefix}ee_link" /> <!-- tf_prefixを適用 -->
   </xacro:if>
 </robot>
