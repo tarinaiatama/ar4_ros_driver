@@ -1,23 +1,17 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
+<!-- This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
-
-  <xacro:macro name="ar_spraygun_srdf" params="parent">
-    <link name="spraygun_link">
-      <visual>
-        <origin rpy="0 0 0" xyz="0 0 0.1"/>
-        <geometry>
-          <mesh filename="file://$(find annin_ar4_description)/meshes/ar4_mk3/spraygun_EE.stl"/>
-        </geometry>
-        <material name="">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material>
-      </visual>
-    </link>
-    <joint name="spraygun_joint" type="fixed">
-      <parent link="${parent}" />
-      <child link="spraygun_link" />
-      <origin xyz="0 0 0.0" rpy="0 0 0"/>
-    </joint>
+  <xacro:macro name="ar_spraygun_srdf" params="tf_prefix">
+    <group name="ar_spraygun">
+      <link name="${tf_prefix}spraygun_base_link" />
+      <joint name="${tf_prefix}spraygun_joint" />
+    </group>
+    <group_state name="default" group="ar_spraygun">
+      <joint name="${tf_prefix}spraygun_joint" value="0" />
+    </group_state>
+    <disable_collisions link1="${tf_prefix}link_6" link2="${tf_prefix}spraygun_base_link" reason="Adjacent" />
   </xacro:macro>
-
 </robot>
