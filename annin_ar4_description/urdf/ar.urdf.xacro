@@ -2,13 +2,13 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg ar_model)">
   <xacro:arg name="tf_prefix" default="" />
   <xacro:arg name="include_gripper" default="false"/>
-  <xacro:arg name="include_spraygun" default="true"/> <!--← 全角スペースを削除 -->
+  <xacro:arg name="include_spraygun" default="true"/>
 
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
 
   <link name="world" />
   <xacro:ar_robot
-    tf_prefix="$(arg tf_prefix)"  <!-- tf_prefix をここで渡す -->
+    tf_prefix="$(arg tf_prefix)"
     parent="world"
     robot_parameters_file="$(find annin_ar4_description)/config/mk3.yaml"
   >
