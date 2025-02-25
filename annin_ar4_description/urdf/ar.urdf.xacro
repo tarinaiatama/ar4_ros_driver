@@ -10,7 +10,7 @@
   <xacro:ar_robot
     tf_prefix="$(arg tf_prefix)"
     parent="world"
-    robot_parameters_file="$(find annin_ar4_description)/config/mk3.yaml"
+    robot_parameters_file="$(find annin_ar4_description)/config/$(arg ar_model).yaml"
   >
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:ar_robot>
