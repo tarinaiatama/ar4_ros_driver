@@ -4,11 +4,11 @@
   <xacro:arg name="include_gripper" default="false"/>
   <xacro:arg name="include_spraygun" default="true"/> <!--← 全角スペースを削除 -->
 
- <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
+  <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
 
   <link name="world" />
   <xacro:ar_robot
-    tf_prefix="$(arg tf_prefix)"
+    tf_prefix="$(arg tf_prefix)"  <!-- tf_prefix をここで渡す -->
     parent="world"
     robot_parameters_file="$(find annin_ar4_description)/config/mk3.yaml"
   >
@@ -24,6 +24,6 @@
   <!-- スプレーガンを追加 -->
   <xacro:if value="$(arg include_spraygun)">
     <xacro:include filename="$(find annin_ar4_description)/urdf/ar_spraygun_macro.xacro"/>
-    <xacro:ar_spraygun parent="${tf_prefix}ee_link" /> <!-- tf_prefixを適用 -->
+    <xacro:ar_spraygun parent="${tf_prefix}ee_link" tf_prefix="$(arg tf_prefix)" /> <!-- tf_prefixを適用 -->
   </xacro:if>
 </robot>
