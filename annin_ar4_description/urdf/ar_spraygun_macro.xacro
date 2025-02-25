@@ -13,7 +13,7 @@
       </visual>
     </link>
     <joint name="${tf_prefix}spraygun_joint" type="fixed">
-     <parent link="${tf_prefix}${parent}" /> <!-- tf_prefixを適用 -->
+     <parent link="${parent}" /> 
      <child link="${tf_prefix}spraygun_link" />
      <origin xyz="0 0 0.0" rpy="0 0 0"/>
     </joint>
