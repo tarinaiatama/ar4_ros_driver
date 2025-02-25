@@ -6,6 +6,7 @@
     *origin
     robot_parameters_file
   ">
+
     <xacro:property name="robot_parameters" value="${xacro.load_yaml(robot_parameters_file)}"/>
 
     <joint name="${tf_prefix}base_joint" type="fixed">
