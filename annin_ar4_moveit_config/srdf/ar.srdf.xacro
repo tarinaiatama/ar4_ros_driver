@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg name)">
-  <xacro:arg name="include_gripper" default="false"/>
-  <xacro:arg name="include_spraygun" default="true"/>
+  <xacro:arg name="include_gripper" default="ture"/>
+  <xacro:arg name="include_spraygun" default="false"/>
 
 　<xacro:arg name="tf_prefix" default="" />
 
