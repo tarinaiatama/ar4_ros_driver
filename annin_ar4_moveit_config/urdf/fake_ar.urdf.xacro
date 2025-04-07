@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg ar_model)">
-
-  <xacro:arg name="tf_prefix" default=""/>
-
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar_macro.xacro"/>
- <!-- <xacro:include filename="$(find annin_ar4_description)/urdf/ar_spraygun_macro.xacro"/> -->
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar_gripper_macro.xacro"/>
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar.ros2_control.xacro"/>
   <xacro:include filename="$(find annin_ar4_description)/urdf/ar_gripper.ros2_control.xacro"/>
 
-  <link name="world" />
+  <xacro:arg name="tf_prefix" default="" />
 
+  <link name="world" />
   <xacro:ar_robot
     tf_prefix="$(arg tf_prefix)"
     parent="world"
@@ -18,11 +15,12 @@
   >
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:ar_robot>
-
-　<xacro:ar_gripper  parent="$(arg tf_prefix)ee_link" tf_prefix="$(arg tf_prefix)" />
+  <xacro:ar_gripper 
+    tf_prefix="$(arg tf_prefix)"
+    parent="$(arg tf_prefix)ee_link" 
+  />
 
   <xacro:ar_ros2_control
-    tf_prefix="$(arg tf_prefix)"
     ar_model="$(arg ar_model)"
     plugin_name="mock_components/GenericSystem"
     serial_port="/dev/ttyACM0"
@@ -30,12 +28,12 @@
     robot_parameters_file="$(find annin_ar4_description)/config/$(arg ar_model).yaml"
     joint_offset_parameters_file="$(find annin_ar4_driver)/config/joint_offsets/$(arg ar_model).yaml"
     driver_parameters_file="$(find annin_ar4_driver)/config/driver.yaml"
+    tf_prefix="$(arg tf_prefix)"
   />
-  
-   <xacro:ar_gripper_ros2_control
+  <xacro:ar_gripper_ros2_control
     name="ARGripperFakeSystem"
     plugin_name="mock_components/GenericSystem"
     serial_port="/dev/ttyUSB0"
-  /> 
-
+    tf_prefix="$(arg tf_prefix)"
+  />
 </robot>
