@@ -25,9 +25,9 @@ class MoveToTarget(Node):
         # 目標姿勢を設定
         target_pose = PoseStamped()
         target_pose.header.frame_id = "base_link"
-        target_pose.pose.position.x = 0.3
-        target_pose.pose.position.y = 0.2
-        target_pose.pose.position.z = 0.4
+        target_pose.pose.position.x = 0.03
+        target_pose.pose.position.y = 0.02
+        target_pose.pose.position.z = 0.04
         target_pose.pose.orientation.w = 1.0
 
         future = self.moveit2.move_to_pose(target_pose)
