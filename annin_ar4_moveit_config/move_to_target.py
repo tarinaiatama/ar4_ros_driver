@@ -13,7 +13,7 @@ class MoveToTarget(Node):
     def __init__(self):
         super().__init__('move_to_target_client')
 
-        self._action_client = ActionClient(self, MoveGroup, 'move_group')
+        self._action_client = ActionClient(self, MoveGroup, 'move_action')
 
         self.send_goal()
 
