@@ -30,9 +30,9 @@ class MoveToTarget(Node):
         # ターゲットの姿勢（例：位置のみ簡易設定）
         pose = PoseStamped()
         pose.header.frame_id = 'base_link'
-        pose.pose.position.x = 0.3
-        pose.pose.position.y = 0.0
-        pose.pose.position.z = 0.3
+        pose.pose.position.x = -0.007
+        pose.pose.position.y = -0.328
+        pose.pose.position.z = 0.475
         pose.pose.orientation.w = 1.0
 
         # PositionConstraint を使用（orientationは今回は無視）
