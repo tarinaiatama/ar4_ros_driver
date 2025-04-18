@@ -5,16 +5,14 @@ from rclpy.node import Node
 from rclpy.action import ActionClient
 
 from moveit_msgs.action import MoveGroup
-from moveit_msgs.msg import MotionPlanRequest, Constraints, PositionConstraint
+from moveit_msgs.msg import MotionPlanRequest, Constraints, PositionConstraint, OrientationConstraint
 from geometry_msgs.msg import PoseStamped
 from shape_msgs.msg import SolidPrimitive
 
 class MoveToTarget(Node):
     def __init__(self):
         super().__init__('move_to_target_client')
-
         self._action_client = ActionClient(self, MoveGroup, 'move_action')
-
         self.send_goal()
 
     def send_goal(self):
@@ -23,36 +21,55 @@ class MoveToTarget(Node):
 
         goal_msg = MoveGroup.Goal()
 
-        # motion_plan_request を設定
+        # MoveIt用のリクエストを作成
         req = MotionPlanRequest()
-        req.group_name = 'ar_manipulator'  # ←グループ名はSRDFと一致するように
+        req.group_name = 'ar_manipulator'
+        req.max_velocity_scaling_factor = 0.3
+        req.max_acceleration_scaling_factor = 0.3
 
-        # ターゲットの姿勢（例：位置のみ簡易設定）
+        # ゴール姿勢を定義
         pose = PoseStamped()
         pose.header.frame_id = 'base_link'
         pose.pose.position.x = -0.007
         pose.pose.position.y = -0.328
         pose.pose.position.z = 0.475
-        pose.pose.orientation.w = 1.0
+        pose.pose.orientation.x = 0.0
+        pose.pose.orientation.y = 0.0
+        pose.pose.orientation.z = 0.0
+        pose.pose.orientation.w = 1.0  # 無回転
 
-        # PositionConstraint を使用（orientationは今回は無視）
-        constraint = PositionConstraint()
-        constraint.header.frame_id = 'base_link'
-        constraint.link_name = 'ee_link'  # ←エンドエフェクタのリンク名に合わせる
-        constraint.target_point_offset.x = 0.0
-        constraint.target_point_offset.y = 0.0
-        constraint.target_point_offset.z = 0.0
+        # --- Position Constraint ---
+        position_constraint = PositionConstraint()
+        position_constraint.header.frame_id = pose.header.frame_id
+        position_constraint.link_name = 'ee_link'
+        position_constraint.target_point_offset.x = 0.0
+        position_constraint.target_point_offset.y = 0.0
+        position_constraint.target_point_offset.z = 0.0
 
-        # ボックスとして許容範囲を設定
+        # ボックスで制約領域を定義（小さめに設定）
         box = SolidPrimitive()
         box.type = SolidPrimitive.BOX
-        box.dimensions = [0.01, 0.01, 0.01]  # ほぼピンポイント
+        box.dimensions = [0.01, 0.01, 0.01]  # 1cm の精度で位置合わせ
 
-        constraint.constraint_region.primitives.append(box)
-        constraint.constraint_region.primitive_poses.append(pose.pose)
+        position_constraint.constraint_region.primitives.append(box)
+        position_constraint.constraint_region.primitive_poses.append(pose.pose)
 
-        req.goal_constraints.append(Constraints(position_constraints=[constraint]))
+        # --- Orientation Constraint ---
+        orientation_constraint = OrientationConstraint()
+        orientation_constraint.header.frame_id = pose.header.frame_id
+        orientation_constraint.link_name = 'ee_link'
+        orientation_constraint.orientation = pose.pose.orientation
+        orientation_constraint.absolute_x_axis_tolerance = 0.1
+        orientation_constraint.absolute_y_axis_tolerance = 0.1
+        orientation_constraint.absolute_z_axis_tolerance = 0.1
+        orientation_constraint.weight = 1.0
 
+        # --- Combine Constraints ---
+        goal_constraints = Constraints()
+        goal_constraints.position_constraints.append(position_constraint)
+        goal_constraints.orientation_constraints.append(orientation_constraint)
+
+        req.goal_constraints.append(goal_constraints)
         goal_msg.request = req
 
         self.get_logger().info('Sending goal...')
