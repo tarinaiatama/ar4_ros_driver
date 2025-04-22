@@ -31,7 +31,7 @@ class MoveToTarget(Node):
         pose = PoseStamped()
         pose.header.frame_id = 'base_link'
         pose.pose.position.x = -0.085
-        pose.pose.position.y = -0.7
+        pose.pose.position.y = 0.32
         pose.pose.position.z = -0.34
         pose.pose.orientation.x = 0.0
         pose.pose.orientation.y = 0.0
