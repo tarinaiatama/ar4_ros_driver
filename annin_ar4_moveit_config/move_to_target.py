@@ -21,24 +21,65 @@ class MoveToTarget(Node):
 
         goal_msg = MoveGroup.Goal()
 
-        # MoveIt用のリクエストを作成
         req = MotionPlanRequest()
         req.group_name = 'ar_manipulator'
         req.max_velocity_scaling_factor = 0.3
         req.max_acceleration_scaling_factor = 0.3
 
-        # ゴール姿勢を定義
+        # 中間地点
+        intermediate_pose = PoseStamped()
+        intermediate_pose.header.frame_id = 'base_link'
+        intermediate_pose.pose.position.x = -0.007
+        intermediate_pose.pose.position.y = -0.328
+        intermediate_pose.pose.position.z = 0.475
+        intermediate_pose.pose.orientation.x = 0.0
+        intermediate_pose.pose.orientation.y = 0.0
+        intermediate_pose.pose.orientation.z = 0.0
+        intermediate_pose.pose.orientation.w = 1.0
+
+        # --- 中間地点のPosition Constraint ---
+        intermediate_pc = PositionConstraint()
+        intermediate_pc.header.frame_id = intermediate_pose.header.frame_id
+        intermediate_pc.link_name = 'ee_link'
+        intermediate_pc.target_point_offset.x = 0.0
+        intermediate_pc.target_point_offset.y = 0.0
+        intermediate_pc.target_point_offset.z = 0.0
+
+        box = SolidPrimitive()
+        box.type = SolidPrimitive.BOX
+        box.dimensions = [0.01, 0.01, 0.01]
+
+        intermediate_pc.constraint_region.primitives.append(box)
+        intermediate_pc.constraint_region.primitive_poses.append(intermediate_pose.pose)
+
+        # --- 中間地点のOrientation Constraint ---
+        intermediate_oc = OrientationConstraint()
+        intermediate_oc.header.frame_id = intermediate_pose.header.frame_id
+        intermediate_oc.link_name = 'ee_link'
+        intermediate_oc.orientation = intermediate_pose.pose.orientation
+        intermediate_oc.absolute_x_axis_tolerance = 0.2
+        intermediate_oc.absolute_y_axis_tolerance = 0.2
+        intermediate_oc.absolute_z_axis_tolerance = 0.2
+        intermediate_oc.weight = 0.5  # 最終目標より優先度低め
+
+        intermediate_constraints = Constraints()
+        intermediate_constraints.position_constraints.append(intermediate_pc)
+        intermediate_constraints.orientation_constraints.append(intermediate_oc)
+
+        # 中間目標を先に追加
+        req.goal_constraints.append(intermediate_constraints)
+
+        # 以下、元のゴール（あなたのコードをそのまま） ----------
         pose = PoseStamped()
         pose.header.frame_id = 'base_link'
-        pose.pose.position.x = -0.007
-        pose.pose.position.y = -0.328
-        pose.pose.position.z = 0.475
+        pose.pose.position.x = 0.4
+        pose.pose.position.y = 0.25
+        pose.pose.position.z = 0.875
         pose.pose.orientation.x = 0.0
         pose.pose.orientation.y = 0.0
         pose.pose.orientation.z = 0.0
-        pose.pose.orientation.w = 1.0  # 無回転
+        pose.pose.orientation.w = 1.0
 
-        # --- Position Constraint ---
         position_constraint = PositionConstraint()
         position_constraint.header.frame_id = pose.header.frame_id
         position_constraint.link_name = 'ee_link'
@@ -46,15 +87,13 @@ class MoveToTarget(Node):
         position_constraint.target_point_offset.y = 0.0
         position_constraint.target_point_offset.z = 0.0
 
-        # ボックスで制約領域を定義（小さめに設定）
         box = SolidPrimitive()
         box.type = SolidPrimitive.BOX
-        box.dimensions = [0.01, 0.01, 0.01]  # 1cm の精度で位置合わせ
+        box.dimensions = [0.01, 0.01, 0.01]
 
         position_constraint.constraint_region.primitives.append(box)
         position_constraint.constraint_region.primitive_poses.append(pose.pose)
 
-        # --- Orientation Constraint ---
         orientation_constraint = OrientationConstraint()
         orientation_constraint.header.frame_id = pose.header.frame_id
         orientation_constraint.link_name = 'ee_link'
@@ -64,7 +103,6 @@ class MoveToTarget(Node):
         orientation_constraint.absolute_z_axis_tolerance = 0.1
         orientation_constraint.weight = 1.0
 
-        # --- Combine Constraints ---
         goal_constraints = Constraints()
         goal_constraints.position_constraints.append(position_constraint)
         goal_constraints.orientation_constraints.append(orientation_constraint)
