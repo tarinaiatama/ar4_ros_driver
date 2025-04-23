@@ -30,9 +30,9 @@ class MoveToTarget(Node):
         # ゴール姿勢を定義
         pose = PoseStamped()
         pose.header.frame_id = 'base_link'
-        pose.pose.position.x = -0.002
-        pose.pose.position.y = -0.231
-        pose.pose.position.z = -0.013
+        pose.pose.position.x = -0.007
+        pose.pose.position.y = -0.328
+        pose.pose.position.z = 0.475
         pose.pose.orientation.x = 0.0
         pose.pose.orientation.y = 0.0
         pose.pose.orientation.z = 0.0
