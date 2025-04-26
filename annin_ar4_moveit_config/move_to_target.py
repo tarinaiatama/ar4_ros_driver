@@ -38,7 +38,7 @@ class MoveToTarget(Node):
         pose.pose.orientation.z = 0.0
         pose.pose.orientation.w = 1.0
 
-        #　姿勢制約
+        # 姿勢制約
         position_constraint = PositionConstraint()
         position_constraint.header.frame_id = pose.header.frame_id
         position_constraint.link_name = 'ee_link'
