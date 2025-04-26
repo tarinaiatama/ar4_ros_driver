@@ -27,7 +27,7 @@ class MoveToTarget(Node):
         req.max_velocity_scaling_factor = 0.3
         req.max_acceleration_scaling_factor = 0.3
 
-    　　# ゴール姿勢を定義
+        # ゴール姿勢を定義
         pose = PoseStamped()
         pose.header.frame_id = 'base_link'
         pose.pose.position.x = -0.007
